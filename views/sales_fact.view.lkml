@@ -81,15 +81,15 @@ view: sales_fact {
     sql: ${TABLE}.unit_price ;;
   }
   parameter: selected_date {
-    label: "Select Date"
     type: date
+    default_value: "now"
+    description: "Reference date for trailing 3-month calculation (defaults to today)"
   }
 
   measure: count {
     type: count
   }
   measure: avg_total_amount_last_3_months {
-
     type: number
     sql:
     AVG(
@@ -102,6 +102,5 @@ view: sales_fact {
     ) ;;
     description: "Average total amount (after discount, tax, shipping) for trailing 3 months"
   }
-
 
 }
