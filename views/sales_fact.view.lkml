@@ -85,7 +85,28 @@ view: sales_fact {
   }
   parameter: selected_date {
     type: date
-    default_value: "2025-10-09"
+  }
+  dimension: last_date_last {
+    type: date
+    sql: DATE_TRUNC({% parameter selected_date %},month);;
+  }
+
+  dimension: start_date_3_months_back {
+    type: date
+    datatype: date
+    sql: DATE_TRUNC(DATE_SUB(CAST({% parameter selected_date %} as date),interval 3 month),month);;
+  }
+  dimension: is_in_period {
+    type: yesno
+    sql: ${order_date}>=${start_date_3_months_back} AND ${order_date}<=${last_date_last} ;;
+  }
+  measure: sales_3_mnths_avg {
+    type: sum
+    sql: ${total_amount}/3 ;;
+    filters: {
+      field: is_in_period
+      value: "yes"
+    }
   }
   measure: conditional_formatting_discount_perc {
 
