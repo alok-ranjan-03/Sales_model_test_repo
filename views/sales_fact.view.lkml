@@ -83,31 +83,73 @@ view: sales_fact {
   measure: count {
     type: count
   }
+  # parameter: selected_date {
+  #   type: date
+  # }
+  # dimension: last_date_last {
+  #   type: date
+  #   sql: DATE_TRUNC({% parameter selected_date %},month);;
+  # }
+
+  # dimension: start_date_3_months_back {
+  #   type: date
+  #   datatype: date
+  #   sql: DATE_TRUNC(DATE_SUB(CAST({% parameter selected_date %} as date),interval 3 month),month);;
+  # }
+  # dimension: is_in_period {
+  #   type: yesno
+  #   sql: ${order_date}>=${start_date_3_months_back} AND ${order_date}<=${last_date_last} ;;
+  # }
+  # measure: sales_3_mnths_avg {
+  #   type: sum
+  #   sql: ${total_amount}/3 ;;
+  #   filters: {
+  #     field: is_in_period
+  #     value: "yes"
+  #   }
+  # }
   parameter: selected_date {
     type: date
   }
+
   dimension: last_date_last {
     type: date
-    sql: DATE_TRUNC({% parameter selected_date %},month);;
+    sql: DATE({% parameter selected_date %}) ;;
   }
 
   dimension: start_date_3_months_back {
     type: date
-    datatype: date
-    sql: DATE_TRUNC(DATE_SUB(CAST({% parameter selected_date %} as date),interval 3 month),month);;
+    sql: DATE_SUB(DATE({% parameter selected_date %}), INTERVAL 3 MONTH) ;;
   }
-  dimension: is_in_period {
+
+  dimension: is_in_trailing_3_months {
     type: yesno
-    sql: ${order_date}>=${start_date_3_months_back} AND ${order_date}<=${last_date_last} ;;
+    sql: ${order_date} BETWEEN ${start_date_3_months_back} AND ${last_date_last} ;;
   }
-  measure: sales_3_mnths_avg {
+
+  measure: total_sales_trailing_3_months {
     type: sum
-    sql: ${total_amount}/3 ;;
+    sql: ${total_amount} ;;
     filters: {
-      field: is_in_period
+      field: is_in_trailing_3_months
       value: "yes"
     }
   }
+
+  measure: total_orders_trailing_3_months {
+    type: count
+    filters: {
+      field: is_in_trailing_3_months
+      value: "yes"
+    }
+  }
+
+  measure: average_sales_trailing_3_months {
+    type: number
+    sql: ${total_sales_trailing_3_months} / NULLIF(${total_orders_trailing_3_months}, 0) ;;
+    value_format_name: "usd"
+  }
+
   measure: conditional_formatting_discount_perc {
 
     type: sum
