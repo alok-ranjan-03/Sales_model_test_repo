@@ -169,7 +169,7 @@ view: sales_fact {
     type: sum
     sql:
     CASE
-      WHEN ${order_date} = DATE_SUB({% parameter selected_date %}, INTERVAL 1 YEAR)
+      WHEN ${order_date} = DATE_SUB(cast({% parameter selected_date %} as date), INTERVAL 1 YEAR)
       THEN ${total_amount}
       ELSE 0
     END ;;
