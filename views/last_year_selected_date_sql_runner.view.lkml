@@ -1,22 +1,32 @@
 
 view: last_year_selected_date_sql_runner {
+  parameter: selected_date {
+    type: date
+    default_value: "today"
+    description: "Select a date to compare sales with last year"
+  }
+
   derived_table: {
-    sql: with cte as(
-      select extract(year from sales_analytics.order_date) as year , round(SUM(sales_analytics.total_amount),2) as total_sales
-      from `looker-training-475011.Sales_Dataset_A.Sales Fact`  AS sales_analytics
-      group by 1
-      )
-      
-      select 
-        curr.year, 
-        curr.total_sales, 
-        prev.total_sales as prev_sales
-      from cte curr 
-      left join cte prev
-      on curr.year-1=prev.year
-      ORDER BY
-          1 DESC
-      LIMIT 500 ;;
+    sql: WITH cte AS (
+  SELECT
+    EXTRACT(YEAR FROM order_date) AS year,
+    ROUND(SUM(total_amount), 2) AS total_sales
+  FROM `looker-training-475011.Sales_Dataset_A.Sales Fact`
+  WHERE order_date IN (
+      {% parameter selected_date %},
+      DATE_SUB({% parameter selected_date %}, INTERVAL 1 YEAR)
+  )
+  GROUP BY 1
+)
+SELECT
+  curr.year,
+  curr.total_sales AS sales_selected_date,
+  prev.total_sales AS sales_previous_year
+FROM cte curr
+LEFT JOIN cte prev
+  ON curr.year - 1 = prev.year
+ORDER BY curr.year DESC
+LIMIT 500; ;;
   }
 
   measure: count {
@@ -42,8 +52,8 @@ view: last_year_selected_date_sql_runner {
   set: detail {
     fields: [
         year,
-	total_sales,
-	prev_sales
+  total_sales,
+  prev_sales
     ]
   }
 }
