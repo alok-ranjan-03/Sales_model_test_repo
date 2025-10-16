@@ -165,8 +165,8 @@ view: sales_fact {
   ;;
   }
 
-  measure: sales_same_date_last_year {
-    type: sum
+  dimension: sales_same_date_last_year {
+    type: number
     sql:
     CASE
       WHEN ${order_date} = DATE_SUB(cast({% parameter selected_date %} as date), INTERVAL 1 YEAR)
