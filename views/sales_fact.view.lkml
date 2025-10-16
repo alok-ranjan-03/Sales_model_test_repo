@@ -85,7 +85,7 @@ view: sales_fact {
   }
   parameter: selected_date {
     type: date
-    default_value: "now"
+    default_value: "2025-10-09"
   }
   measure: conditional_formatting_discount_perc {
 
