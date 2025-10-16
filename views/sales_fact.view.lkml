@@ -80,27 +80,12 @@ view: sales_fact {
     type: number
     sql: ${TABLE}.unit_price ;;
   }
-  parameter: selected_date {
-    type: date
-    default_value: "now"
-    description: "Reference date for trailing 3-month calculation (defaults to today)"
-  }
-
   measure: count {
     type: count
   }
-  measure: avg_total_amount_last_3_months {
-    type: number
-    sql:
-    AVG(
-      CASE
-        WHEN ${order_date} BETWEEN DATE_SUB(CAST(%{selected_date} AS DATE), INTERVAL 3 MONTH)
-                              AND CAST(%{selected_date} AS DATE)
-        THEN ${total_amount}
-        ELSE NULL
-      END
-    ) ;;
-    description: "Average total amount (after discount, tax, shipping) for trailing 3 months"
+  parameter: selected_date {
+    type: date
+    default_value: "now"
   }
 
 }
