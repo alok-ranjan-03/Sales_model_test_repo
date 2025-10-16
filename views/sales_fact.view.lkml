@@ -72,15 +72,36 @@ view: sales_fact {
     type: number
     sql: ${TABLE}.tax_percentage ;;
   }
-  dimension: total_amount {
-    type: number
+  measure: total_amount {
+    type: sum
     sql: ${TABLE}.total_amount ;;
   }
   dimension: unit_price {
     type: number
     sql: ${TABLE}.unit_price ;;
   }
+  parameter: selected_date {
+    label: "Select Date"
+    type: date
+  }
+
   measure: count {
     type: count
   }
+  measure: avg_total_amount_last_3_months {
+
+    type: number
+    sql:
+    AVG(
+      CASE
+        WHEN ${order_date} BETWEEN DATE_SUB(CAST(%{selected_date} AS DATE), INTERVAL 3 MONTH)
+                              AND CAST(%{selected_date} AS DATE)
+        THEN ${total_amount}
+        ELSE NULL
+      END
+    ) ;;
+    description: "Average total amount (after discount, tax, shipping) for trailing 3 months"
+  }
+
+
 }
