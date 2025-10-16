@@ -93,11 +93,11 @@ view: sales_fact {
     sql: ${discount_percentage} ;;
     html:
     {% if value >= 10 %}
-      <p style="color: black; background-color: green; font-size:100%; text-align:center">{{ rendered_value }}</p>
+      <p style="color: black; background-color: green; font-size:100%; font-color:white; text-align:center">{{ rendered_value }}</p>
     {% elsif value >= 5 %}
       <p style="color: black; background-color: orange; font-size:100%; text-align:center">{{ rendered_value }}</p>
     {% else %}
-      <p style="color: black; background-color: red; font-size:100%; text-align:center">{{ rendered_value }}</p>
+      <p style="color: black; background-color: red; font-color:white; font-size:100%; text-align:center">{{ rendered_value }}</p>
     {% endif %}
   ;;
   }
