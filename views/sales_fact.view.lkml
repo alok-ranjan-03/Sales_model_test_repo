@@ -72,8 +72,8 @@ view: sales_fact {
     type: number
     sql: ${TABLE}.tax_percentage ;;
   }
-  measure: total_amount {
-    type: sum
+  dimension: total_amount {
+    type: number
     sql: ${TABLE}.total_amount ;;
   }
   dimension: unit_price {
@@ -101,5 +101,18 @@ view: sales_fact {
     {% endif %}
   ;;
   }
+
+  measure: sales_same_date_last_year {
+    type: sum
+    sql:
+    CASE
+      WHEN ${order_date} = DATE_SUB({% parameter selected_date %}, INTERVAL 1 YEAR)
+      THEN ${total_amount}
+      ELSE 0
+    END ;;
+    label: "Sales (Same Date Last Year)"
+    description: "Sum of total_amount for the same date last year as the selected date"
+  }
+
 
 }
