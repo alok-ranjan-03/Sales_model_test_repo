@@ -42,4 +42,11 @@ explore: sales_analytics {
     sql_on: ${sales_analytics.sales_rep_id} = ${sales_rep_dimension.sales_rep_id} ;;
     relationship: many_to_one
   }
+
+  join: last_year_selected_date_sql_runner {
+    view_label: "Last year selected date"
+    type: left_outer
+    sql_on: ${sales_analytics.order_year} = ${last_year_selected_date_sql_runner.year} ;;
+    relationship: many_to_one
+  }
 }
