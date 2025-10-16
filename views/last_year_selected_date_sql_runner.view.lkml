@@ -19,8 +19,8 @@ view: last_year_selected_date_sql_runner {
           ROUND(SUM(total_amount),2) AS total_sales
         FROM `looker-training-475011.Sales_Dataset_A.Sales Fact`
         WHERE DATE(order_date) IN (
-            {% parameter selected_date %},
-            DATE_SUB(DATE({% parameter selected_date %}), INTERVAL 1 YEAR)
+            DATE({% parameter selected_date %}),
+            DATE(DATE_SUB(DATE({% parameter selected_date %}), INTERVAL 1 YEAR))
         )
         GROUP BY 1
       ) AS curr
@@ -31,14 +31,15 @@ view: last_year_selected_date_sql_runner {
           ROUND(SUM(total_amount),2) AS total_sales
         FROM `looker-training-475011.Sales_Dataset_A.Sales Fact`
         WHERE DATE(order_date) IN (
-            {% parameter selected_date %},
-            DATE_SUB(DATE({% parameter selected_date %}), INTERVAL 1 YEAR)
+            DATE({% parameter selected_date %}),
+            DATE(DATE_SUB(DATE({% parameter selected_date %}), INTERVAL 1 YEAR))
         )
         GROUP BY 1
       ) AS prev
     ON curr.year - 1 = prev.year
   ;;
   }
+
 
   measure: count {
     type: count
