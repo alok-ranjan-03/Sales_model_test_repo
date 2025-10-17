@@ -191,15 +191,8 @@ view: sales_fact {
     type: string
     sql:
     CASE
-      WHEN {% parameter order_status_filter %} = 'ALL'
-        THEN ${order_status}
-      ELSE
-        CASE
-          WHEN ${order_status} = {% parameter order_status_filter %}
-          THEN ${order_status}
-        END
+      WHEN {% parameter order_status_filter %} = 'ALL' THEN ${order_status}
+      ELSE ${order_status}
     END ;;
-    label: "Order Status (Filtered)"
   }
-
 }
