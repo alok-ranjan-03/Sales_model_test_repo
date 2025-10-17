@@ -227,4 +227,24 @@ view: sales_fact {
     value_format_name: "usd"
   }
 
+  parameter: dynamic_measure_val {
+    type: unquoted
+    allowed_value: {
+      label: "Total Cost"
+      value: "unit_price"
+    }
+    allowed_value: {
+      label: "Total Sales"
+      value: "total_amount"
+    }
+    allowed_value: {
+      label: "Total Quantity"
+      value: "count"
+    }
+  }
+
+  measure: dynamic_sum_using_measure {
+    type: sum
+    sql: ${TABLE}.{% parameter dynamic_measure_val %} ;;
+  }
 }
