@@ -185,13 +185,13 @@ view: sales_fact {
     allowed_value: { label: "Completed" value: "Completed" }
     allowed_value: { label: "Returned" value: "Returned" }
     allowed_value: { label: "Shipped" value: "Shipped" }
-    default_value: "All"
+    default_value: "ALL"
   }
   dimension: filtered_order_status {
     type: string
     sql:
     CASE
-      WHEN {% parameter order_status_filter %} = 'All'
+      WHEN {% parameter order_status_filter %} = 'ALL'
         THEN ${order_status}
       ELSE
         CASE
