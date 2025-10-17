@@ -177,5 +177,29 @@ view: sales_fact {
     description: "Sum of total_amount for the same date last year as the selected date"
   }
 
+  parameter: order_status_filter {
+    label: "Order Status (with All)"
+    type: string
+    allowed_value: { label: "All" value: "ALL" }
+    allowed_value: { label: "Cancelled" value: "Cancelled" }
+    allowed_value: { label: "Completed" value: "Completed" }
+    allowed_value: { label: "Returned" value: "Returned" }
+    allowed_value: { label: "Shipped" value: "Shipped" }
+    default_value: "All"
+  }
+  dimension: filtered_order_status {
+    type: string
+    sql:
+    CASE
+      WHEN {% parameter order_status_filter %} = 'All'
+        THEN ${order_status}
+      ELSE
+        CASE
+          WHEN ${order_status} = {% parameter order_status_filter %}
+          THEN ${order_status}
+        END
+    END ;;
+    label: "Order Status (Filtered)"
+  }
 
 }
