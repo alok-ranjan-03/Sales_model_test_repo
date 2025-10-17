@@ -49,4 +49,10 @@ explore: sales_analytics {
     sql_on: ${sales_analytics.order_year} = ${last_year_selected_date_sql_runner.year} ;;
     relationship: many_to_one
   }
+
+  join: category_cost_price {
+    type: left_outer
+    sql_on: ${product_dimension.category} = ${category_cost_price.category} ;;
+    relationship: many_to_one
+  }
 }
