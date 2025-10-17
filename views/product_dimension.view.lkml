@@ -39,9 +39,9 @@ view: product_dimension {
     sql: ${TABLE}.product_name ;;
     html:
     {% if product_name._value == "Action Figure" %}
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Action_figure_example.jpg" height="170" width="255">
+      <img src="https://unsplash.com/photos/a-statue-of-a-man-in-a-superman-suit-99rNTJ22Zps" height="170" width="255">
     {% elsif product_name._value == "Belt" %}
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Leather_belt_example.jpg" height="170" width="255">
+      <img src="https://www.freepik.com/free-photo/cinturon-con-fondo-blanco_990692.htm#fromView=keyword&page=1&position=2&uuid=e2ce5096-8652-4a6e-86c2-f5613a6719dd&query=Belt" height="170" width="255">
     {% elsif product_name._value == "Board Game" %}
       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Board_game_example.jpg" height="170" width="255">
     {% elsif product_name._value == "Camera" %}
