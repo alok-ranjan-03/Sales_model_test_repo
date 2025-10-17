@@ -55,4 +55,5 @@ explore: sales_analytics {
     sql_on: ${product_dimension.category} = ${category_cost_price.category} ;;
     relationship: many_to_one
   }
+
 }

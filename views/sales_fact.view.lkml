@@ -195,4 +195,36 @@ view: sales_fact {
       ELSE ${order_status}
     END ;;
   }
+
+  parameter: year_filter {
+    type: number
+    label: "Select Year"
+    hidden: yes   # initially hidden
+  }
+  dimension: show_year_filter {
+    type: yesno
+    hidden: yes
+    sql:
+    CASE
+      WHEN {% parameter selected_date %} IS NOT NULL THEN TRUE
+      ELSE FALSE
+    END ;;
+  }
+
+  measure: total_sales_conditional {
+    type: sum
+    sql:
+      CASE
+        -- Apply year filter only if both parameters are selected
+        WHEN {% parameter selected_date %} IS NOT NULL
+             AND {% parameter year_filter %} IS NOT NULL
+             AND EXTRACT(YEAR FROM ${order_date}) = {% parameter year_filter %}
+        THEN ${total_amount}
+
+      -- Otherwise, include all rows
+      ELSE ${total_amount}
+      END ;;
+    value_format_name: "usd"
+  }
+
 }
