@@ -239,7 +239,7 @@ view: sales_fact {
     }
     allowed_value: {
       label: "Total Quantity"
-      value: "count"
+      value: "quantity"
     }
   }
 
