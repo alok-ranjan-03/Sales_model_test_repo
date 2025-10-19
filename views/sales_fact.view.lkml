@@ -290,4 +290,9 @@ view: sales_fact {
     {% endif %};;
 
   }
+
+  measure: total_sales_measure {
+    type: sum
+    sql: ${total_amount} ;;
+  }
 }
