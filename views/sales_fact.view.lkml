@@ -267,7 +267,7 @@ view: sales_fact {
     }
   }
 
-  measure: dynamic_calculations_by_date_granulaity {
+  dimension: dynamic_calculations_by_date_granulaity {
     sql:
     {% if date_granularity._parameter_value == 'day' %}
       ${order_date}
