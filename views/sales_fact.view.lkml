@@ -227,6 +227,8 @@ view: sales_fact {
     value_format_name: "usd"
   }
 
+
+##creating dynamic measures
   parameter: dynamic_measure_val {
     type: unquoted
     allowed_value: {
@@ -246,5 +248,46 @@ view: sales_fact {
   measure: dynamic_sum_using_measure {
     type: sum
     sql: ${TABLE}.{% parameter dynamic_measure_val %} ;;
+  }
+
+  ## creating dynamic date granularity
+  parameter: date_granularity {
+    type: unquoted
+    allowed_value: {
+      label: "Calculations by Day"
+      value: "day"
+    }
+    allowed_value: {
+      label: "Calculations by Month"
+      value: "month"
+    }
+    allowed_value: {
+      label: "Calculations by Year"
+      value: "year"
+    }
+  }
+
+  measure: dynamic_calculations_by_date_granulaity {
+    sql:
+    {% if date_granularity._parameter_value == 'day' %}
+      ${order_date}
+    {% elsif date_granularity._parameter_value == 'month' %}
+      ${order_month}
+    {% else %}
+      ${order_year}
+    {% endif %}
+    ;;
+
+    html:
+    {% if date_granularity._parameter_value == 'day' %}
+    <font color="darkgreen">{{ rendered_value }}</font>
+    {% elsif date_granularity._parameter_value == 'month' %}
+    <font color="darkred">{{ rendered_value }}</font>
+    {% elsif date_granularity._parameter_value == 'year' %}
+    <font color="darkblue">{{ rendered_value }}</font>
+    {% else %}
+    <font color="black">{{ rendered_value }}</font>
+    {% endif %};;
+
   }
 }
