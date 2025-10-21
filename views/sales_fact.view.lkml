@@ -322,5 +322,9 @@ view: sales_fact {
     allowed_value: { label: "Top 10" value: "10" }
     allowed_value: { label: "Top 20" value: "20" }
   }
+  measure: unit_price_test_measure {
+    type: sum
+    sql: ${TABLE}.unit_price ;;
+  }
 
 }
