@@ -179,12 +179,7 @@ view: sales_fact {
 
   dimension: is_same_date_last_year {
     type: yesno
-    sql:
-    CASE
-      WHEN ${order_date} = DATE_SUB(CAST({% parameter selected_date %} AS DATE), INTERVAL 1 YEAR)
-      THEN TRUE
-      ELSE FALSE
-    END ;;
+    sql:${order_date} = DATE_SUB(CAST({% parameter selected_date %} AS DATE), INTERVAL 1 YEAR) ;;
   }
 
   measure: sales_same_date_last_year_measure {
