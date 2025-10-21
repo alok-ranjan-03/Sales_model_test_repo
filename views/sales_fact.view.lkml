@@ -177,6 +177,28 @@ view: sales_fact {
     description: "Sum of total_amount for the same date last year as the selected date"
   }
 
+  dimension: is_same_date_last_year {
+    type: yesno
+    sql:
+    CASE
+      WHEN ${order_date} = DATE_SUB(CAST({% parameter selected_date %} AS DATE), INTERVAL 1 YEAR)
+      THEN TRUE
+      ELSE FALSE
+    END ;;
+    hidden: yes
+  }
+
+  measure: sales_same_date_last_year_measure {
+    type: sum
+    sql: ${total_amount} ;;
+    filters: {
+      field: is_same_date_last_year
+      value: "yes"
+    }
+    label: "Sales (Same Date Last Year)"
+  }
+
+
   parameter: order_status_filter {
     label: "Order Status (with All)"
     type: string
