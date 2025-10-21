@@ -64,5 +64,33 @@ view: product_dimension {
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" height="170" width="170">
     {% endif %} ;;
   }
+  dimension: product_image_url {
+    label: "Product Image URL"
+    type: string
+    sql:
+    CASE
+      WHEN ${product_name} = 'Action Figure' THEN 'https://images.unsplash.com/photo-1575936123452-b67c3203c357'
+      WHEN ${product_name} = 'Belt' THEN 'https://images.unsplash.com/photo-1580910051073-d1d274b4dd8b'
+      WHEN ${product_name} = 'Board Game' THEN 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Board_game_example.jpg'
+      WHEN ${product_name} = 'Camera' THEN 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Camera_example.jpg'
+      WHEN ${product_name} = 'Cookware Set' THEN 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Cookware_set_example.jpg'
+      WHEN ${product_name} = 'Curtains' THEN 'https://upload.wikimedia.org/wikipedia/commons/7/7f/Curtains_example.jpg'
+      WHEN ${product_name} = 'Dinner Set' THEN 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Dinner_set_example.jpg'
+      WHEN ${product_name} = 'Doll' THEN 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Doll_example.jpg'
+      WHEN ${product_name} = 'Dress' THEN 'https://upload.wikimedia.org/wikipedia/commons/4/44/Dress_example.jpg'
+      WHEN ${product_name} = 'Handbag' THEN 'https://upload.wikimedia.org/wikipedia/commons/5/57/Handbag_example.jpg'
+      WHEN ${product_name} = 'Headphones' THEN 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Headphones_example.jpg'
+      ELSE 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'
+    END
+  ;;
+  }
+
+  dimension: product_image_link {
+    type: string
+    sql: ${product_image_url} ;;
+    html:
+    <a href="{{ value }}" target="_blank">{{ value }}</a>
+  ;;
+  }
 
 }
