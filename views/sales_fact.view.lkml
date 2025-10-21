@@ -185,7 +185,6 @@ view: sales_fact {
       THEN TRUE
       ELSE FALSE
     END ;;
-    hidden: yes
   }
 
   measure: sales_same_date_last_year_measure {
