@@ -295,4 +295,16 @@ view: sales_fact {
     type: sum
     sql: ${total_amount} ;;
   }
+
+  parameter: top_n {
+    type: number
+    default_value: "10"
+    allowed_value: {
+      label: "Top 5"
+      value: "5"
+    }
+    allowed_value: { label: "Top 10" value: "10" }
+    allowed_value: { label: "Top 20" value: "20" }
+  }
+
 }
