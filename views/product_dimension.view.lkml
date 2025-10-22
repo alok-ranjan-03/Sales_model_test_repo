@@ -94,16 +94,10 @@ view: product_dimension {
   }
 
   #drill analysis
-
-  dimension: total_sales_test_drill {
+  measure: total_sales_test_drill {
     type: number
-    sql: ${unit_price} * ${count} ;;
+    sql: ${unit_price} * 1 ;; #no quantity so multiplied by 1
     drill_fields: [brand_name, product_name, unit_price, count]
-  }
-
-  measure: total_sales_test_drill_measure {
-    type: sum
-    sql: ${total_sales_test_drill} ;;
   }
 
   dimension: category_drill {
