@@ -95,12 +95,16 @@ view: product_dimension {
 
   #drill analysis
 
-  measure: total_sales_test_drill {
-    type: sum
+  dimension: total_sales_test_drill {
+    type: number
     sql: ${unit_price} * ${count} ;;
     drill_fields: [brand_name, product_name, unit_price, count]
   }
 
+  measure: total_sales_test_drill_measure {
+    type: sum
+    sql: ${total_sales_test_drill} ;;
+  }
 
   dimension: category_drill {
     sql: ${TABLE}.category ;;
