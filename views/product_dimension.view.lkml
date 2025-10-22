@@ -96,7 +96,7 @@ view: product_dimension {
   #drill analysis
   measure: total_sales_test_drill {
     type: number
-    sql: ${unit_price} * 1 ;; #no quantity so multiplied by 1
+    sql: ${unit_price} ;;
     drill_fields: [brand_name, product_name, unit_price, count]
   }
 
