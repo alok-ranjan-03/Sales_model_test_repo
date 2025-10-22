@@ -310,6 +310,7 @@ view: sales_fact {
   measure: total_sales_measure {
     type: sum
     sql: ${total_amount} ;;
+    drill_fields: [product_dimension.brand_name, product_dimension.product_name, product_dimension.unit_price]
   }
 
   parameter: top_n {
