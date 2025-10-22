@@ -93,4 +93,22 @@ view: product_dimension {
   ;;
   }
 
+  #drill analysis
+
+  measure: total_sales_test_drill {
+    type: sum
+    sql: ${unit_price} * ${count} ;;
+    drill_fields: [brand_name, product_name, unit_price, count]
+  }
+
+
+  dimension: category_drill {
+    sql: ${TABLE}.category ;;
+    drill_fields: [product_name, total_sales_test_drill]
+  }
+
+  dimension: product_name_drill {
+    sql: ${TABLE}.product_name ;;
+    drill_fields: [product_id, rating, description]
+  }
 }
