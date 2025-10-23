@@ -6,7 +6,7 @@ view: customer_dimension {
     sql: ${TABLE}.avg_order_value ;;
   }
   dimension: city {
-    type: string
+    type: zipcode
     sql: ${TABLE}.city ;;
   }
   dimension: credit_limit {
@@ -38,7 +38,7 @@ view: customer_dimension {
     sql: ${TABLE}.segment ;;
   }
   dimension: state {
-    type: string
+    type: zipcode
     sql: ${TABLE}.state ;;
   }
   dimension: total_orders {
