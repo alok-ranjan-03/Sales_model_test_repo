@@ -18,6 +18,7 @@ view: sales_rep_dimension {
   }
   dimension: sales_rep_id {
     type: number
+    primary_key: yes
     sql: ${TABLE}.sales_rep_id ;;
   }
   dimension: sales_rep_name {
