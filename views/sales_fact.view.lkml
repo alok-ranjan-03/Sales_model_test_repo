@@ -328,4 +328,5 @@ view: sales_fact {
     sql: ${TABLE}.unit_price ;;
   }
 
+
 }
