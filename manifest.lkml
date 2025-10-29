@@ -6,7 +6,6 @@ project_name: "Sales_A"
 # local_dependency: {
 #   project: "name_of_other_project"
 # }
-# Example in manifest.lkml
 visualization: {
   id: "my_custom_viz"
   label: "My Custom Visualization"
